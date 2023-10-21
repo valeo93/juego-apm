@@ -1,0 +1,18 @@
+body
+{
+    text-align: center;
+}
+#izquierda
+{
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+
+}
+#derecha
+{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    
+}
