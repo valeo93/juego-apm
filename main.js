@@ -1,5 +1,13 @@
 var puntos=0
 var vidas=5
+
+function preload()
+{
+    mario_corre=loadAnimation("m2.png", "m3.png", "m4.png")
+    mario=loadAnimation("m1.png")
+}
+
+
 function setup()
 {
     canvas=createCanvas(400,400)
@@ -8,7 +16,8 @@ function setup()
     malos=createGroup()
     buenos=createGroup()
     bordes=createEdgeSprites()
-
+    jugador.addAnimation("pose", mario)
+    jugador.addAnimation("corre", mario_corre)
 }
 function draw()
 {
@@ -35,14 +44,19 @@ function draw()
 }
 function Mover_derecha()
 {
-    jugador.x=jugador.x +5
+    jugador.x=jugador.x +10
+    jugador.changeAnimation("corre", mario_corre)
+    jugador.mirrorX(1)
 }
 function Mover_izquierda()
 {
-    jugador.x=jugador.x -5
+    jugador.x=jugador.x -10
+    jugador.changeAnimation("corre", mario_corre)
+    jugador.mirrorX(-1)
 }
-function perder_vidas()
+function perder_vidas(s1,s2)
 {
+    s2.destroy()
     vidas=vidas-1
     if(vidas==0)
     {
@@ -52,9 +66,11 @@ function perder_vidas()
         noLoop()
     }
 }
-function ganar_puntos()
+function ganar_puntos(s1,s2)
 {
     puntos=puntos+1
+    s2.destroy()
+
 }
 function mostrar_marcadores()
 {
