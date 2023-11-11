@@ -1,0 +1,29 @@
+body
+{
+    text-align: center;
+    background-color: #e8f7e6;
+background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e8f7e6 10px ), repeating-linear-gradient( #6df74555, #6df745 );
+height: 100vh;
+}
+#izquierda
+{
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    border-radius: 50px;
+    border:2px black ridge;
+    box-shadow: 0px 5px 15px gray;
+}
+#derecha
+{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50px;
+    border:2px black ridge;
+    box-shadow: 0px 5px 15px gray;
+}
+canvas
+{
+    box-shadow: 0px 5px 15px black;
+}
