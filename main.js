@@ -48,6 +48,8 @@ function preload()
     n7=loadImage("n7.png")
     n8=loadImage("n8.png")
 
+    texto=loadFont("PTSerif-Regular.ttf")
+
 }
 
 
@@ -67,6 +69,7 @@ function setup()
     n6.resize (190,200) 
     n7.resize (277,150)
     n8.resize (200,200)
+    textFont(texto)
 }
 function draw()
 {
@@ -79,7 +82,7 @@ function draw()
     if(frameCount%50==0)
     {
         malo_1=createSprite(random(0,400),-10,30,30)
-        malo_1.velocity.y=5
+        malo_1.velocity.y=5+puntos*0.5
         aleatorio=Math.floor(Math.random()*no_rec.length)
         malo_1.scale=0.2
         malo_1.addImage(no_rec[aleatorio])
@@ -88,7 +91,7 @@ function draw()
     if(frameCount%70==0)
     { 
         bueno_1=createSprite(random(0,400),-10,30,30)
-        bueno_1.velocity.y=5
+        bueno_1.velocity.y=5+puntos*0.5
         aleatorio=Math.floor(Math.random()*reciclable.length)
         bueno_1.addImage(reciclable[aleatorio])
         buenos.add(bueno_1)
@@ -115,7 +118,7 @@ function perder_vidas(s1,s2)
     {
         jugador.destroy()
         textSize(30)
-        text("¡PERDISTE!", 150,200)
+        text("¡PERDISTE!", 120,200)
         noLoop()
         registrar_puntos()
     }
