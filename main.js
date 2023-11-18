@@ -1,7 +1,9 @@
 var puntos=0
 var vidas=5
 
-var usuario=window.location.search.substring(1).split("=")[1]
+var usuario=decodeURIComponent(window.location.search.match(/(\?|&)usuario\=([^&]*)/)[2]);
+var escenario=decodeURIComponent(window.location.search.match(/(\?|&)escenario\=([^&]*)/)[2]);
+var personaje=decodeURIComponent(window.location.search.match(/(\?|&)personaje\=([^&]*)/)[2]);
 
 var firebaseConfig = {
   apiKey: "AIzaSyCE4YjZ8zyNEo4D9jXth6SdsL_Z2k6MtS8",
@@ -16,9 +18,8 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 function preload()
 {
-    mario_corre=loadAnimation("m2.png", "m3.png", "m4.png")
-    mario=loadAnimation("m1.png")
-    fondo=loadImage("bg001.png")
+    cargar_personaje()
+    cargar_escenario()
     r1=loadImage("r1.png")
     r2=loadImage("r2.png")
     r3=loadImage("r3.png")
@@ -139,4 +140,54 @@ function mostrar_marcadores()
 function registrar_puntos ()
 {
     firebase.database().ref().child(usuario).update({puntos:puntos})
+}
+
+function cargar_escenario()
+{
+    switch(escenario)
+    {
+        case "Parque": 
+        fondo= loadImage("bg001.png");
+        break; 
+        case "Nevado": 
+        fondo= loadImage("sky.png");
+        break; 
+        case "Espacio": 
+        fondo= loadImage("main_menu_background.jpg");
+        break; 
+        default: 
+        fondo= loadImage("bg001.png");
+        break; 
+    }
+}
+
+function cargar_personaje()
+{
+    switch(personaje)
+    {
+        case "Mario": 
+        mario= loadAnimation("m1.png");
+        mario_corre= loadAnimation("m2.png", "m3.png", "m4.png");
+        break; 
+        case "Nicki": 
+        mario= loadAnimation("N_1.gif");
+        mario_corre= loadAnimation("m2.png", "m3.png", "m4.png");
+        break; 
+        case "Pablo": 
+        mario= loadAnimation("P_1.gif");
+        mario_corre= loadAnimation("m2.png", "m3.png", "m4.png");
+        break; 
+        case "Daniela": 
+        mario= loadAnimation("D_1.gif");
+        mario_corre= loadAnimation("m2.png", "m3.png", "m4.png");
+        break;
+        case "Axel": 
+        mario= loadAnimation("A_1.png");
+        mario_corre= loadAnimation("m2.png", "m3.png", "m4.png");
+        break;
+        default: 
+        mario= loadAnimation("m1.png");
+        mario_corre= loadAnimation("m2.png", "m3.png", "m4.png");
+        break; 
+    }
 }
