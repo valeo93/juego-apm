@@ -153,7 +153,14 @@ function ganar_puntos(s1,s2)
 function mostrar_marcadores()
 {
     textSize(20)
-    fill("black")
+    if(escenario=="Espacio")
+    {
+        fill("white")
+    }
+    else
+    {
+        fill("black")  
+    }
     text(puntos + " puntos", ancho - textWidth(puntos + " puntos") -30,50 )
     text(vidas + " vidas", 30,50)
 }
