@@ -2,8 +2,8 @@ body
 {
     text-align: center;
     background-color: #e8f7e6;
-background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e8f7e6 10px ), repeating-linear-gradient( #6df74555, #6df745 );
-height: 100vh;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e8f7e6 10px ), repeating-linear-gradient( #6df74555, #6df745 );
+    height: 100vh;
 }
 #izquierda
 {
@@ -11,7 +11,7 @@ height: 100vh;
     left: 20px;
     bottom: 20px;
     border-radius: 50px;
-    border:2px black ridge;
+    border:2px #4C8D48 ridge;
     box-shadow: 0px 5px 15px gray;
 }
 #derecha
@@ -20,10 +20,58 @@ height: 100vh;
     right: 20px;
     bottom: 20px;
     border-radius: 50px;
-    border:2px black ridge;
+    border:2px #4C8D48 ridge;
     box-shadow: 0px 5px 15px gray;
 }
 canvas
 {
+    margin-top: 50px;
     box-shadow: 0px 5px 15px black;
+}
+#logro_desbloqueado
+{
+    visibility: collapse;
+}
+#mostrar_puntos 
+{
+    aspect-ratio: 1;
+    box-shadow: 0px 5px 15px black;
+    position: fixed;
+    left: 50%;
+    top: 115px;
+    transform: translateX(-50%);
+    background-image: url(recycling_world.png);
+    background-size: contain;
+    color: gold;
+    font-family: fantasy;
+    font-weight: bold;
+    font-size: 20px;
+    text-stroke: 0.5px rgb(7, 80, 7);
+    -webkit-text-stroke: 0.5px rgb(7, 80, 7);
+    border-radius: 700px;
+    overflow: hidden;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    visibility: collapse;
+}
+
+@media (max-width: 550px) {
+    #mostrar_puntos 
+    {
+        font-size: 17px;
+        text-stroke: 0.4px rgb(7, 80, 7);
+        -webkit-text-stroke: 0.4px rgb(7, 80, 7);
+    }
+
+    #mostrar_puntos img 
+    {
+        max-height: 40px;
+        position: absolute;
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
