@@ -53,12 +53,16 @@ function preload()
     n10=loadImage("n10.png")
 
     texto=loadFont("PTSerif-Regular.ttf")
+    musica=loadSound("Classical Pop.mp3")
+    sonidoP=loadSound("completetask_0.mp3")
 
 }
 
 
 function setup()
 {
+    musica.setVolume(0.2)
+    musica.play()
     if(windowWidth < windowHeight)
     {
         ancho = windowWidth - 50
@@ -136,6 +140,7 @@ function perder_vidas(s1,s2)
     vidas=vidas-1
     if(vidas==0)
     {
+        musica.stop()
         jugador.destroy()
         textSize(30)
         text("¡PERDISTE!", ancho/2 -(textWidth("¡PERDISTE!")/2),ancho/2)
@@ -146,6 +151,8 @@ function perder_vidas(s1,s2)
 }
 function ganar_puntos(s1,s2)
 {
+    sonidoP.setVolume(0.5)
+    sonidoP.play()
     puntos=puntos+1
     s2.destroy()
 
