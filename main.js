@@ -1,7 +1,7 @@
 var puntos=0
 var vidas=5
 var puntajeAnterior=0
-
+var ancho = 0;
 var usuario=decodeURIComponent(window.location.search.match(/(\?|&)usuario\=([^&]*)/)[2]);
 var escenario=decodeURIComponent(window.location.search.match(/(\?|&)escenario\=([^&]*)/)[2]);
 var personaje=decodeURIComponent(window.location.search.match(/(\?|&)personaje\=([^&]*)/)[2]);
@@ -49,6 +49,8 @@ function preload()
     n6=loadImage("n6.png")
     n7=loadImage("n7.png")
     n8=loadImage("n8.png")
+    n9=loadImage("n9.png")
+    n10=loadImage("n10.png")
 
     texto=loadFont("PTSerif-Regular.ttf")
 
@@ -57,20 +59,36 @@ function preload()
 
 function setup()
 {
-    canvas=createCanvas(400,400)
-    jugador=createSprite(200,340,50,100)
+    if(windowWidth < windowHeight)
+    {
+        ancho = windowWidth - 50
+    }
+    else
+    {
+        ancho = windowHeight -100
+    }
+    document.getElementById("mostrar_puntos").style.width = ancho - 120 + "px";
+    canvas=createCanvas(ancho,ancho)
+    jugador=createSprite(200,ancho*0.85,50,100)
+    jugador.velocityY = 1;
     malos=createGroup()
     buenos=createGroup()
     bordes=createEdgeSprites()
     jugador.addAnimation("pose", mario)
     jugador.addAnimation("corre", mario_corre)
-    suelo=createSprite(0,380,800,10)
+    suelo=createSprite(ancho/2,ancho*0.925,ancho,10)
     suelo.visible=false
     reciclable=[r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17,r18,r19,r20]
-    no_rec=[n1,n2,n3,n4,n5,n6,n7,n8]
+    no_rec=[n1,n2,n3,n4,n5,n6,n7,n8,n9,n10]
     n6.resize (190,200) 
     n7.resize (277,150)
     n8.resize (200,200)
+    n9.resize (110,180)
+    n10.resize (150,150)
+    r13.resize (40,60)
+    r15.resize (25,50)
+    r19.resize (22,32)
+    r20.resize (22,32)
     textFont(texto)
 }
 function draw()
@@ -83,7 +101,7 @@ function draw()
     mostrar_marcadores()
     if(frameCount%50==0)
     {
-        malo_1=createSprite(random(0,400),-10,30,30)
+        malo_1=createSprite(random(0,ancho),-10,30,30)
         malo_1.velocity.y=5+puntos*0.5
         aleatorio=Math.floor(Math.random()*no_rec.length)
         malo_1.scale=0.2
@@ -92,7 +110,7 @@ function draw()
     }
     if(frameCount%70==0)
     { 
-        bueno_1=createSprite(random(0,400),-10,30,30)
+        bueno_1=createSprite(random(0,ancho),-10,30,30)
         bueno_1.velocity.y=5+puntos*0.5
         aleatorio=Math.floor(Math.random()*reciclable.length)
         bueno_1.addImage(reciclable[aleatorio])
@@ -120,8 +138,9 @@ function perder_vidas(s1,s2)
     {
         jugador.destroy()
         textSize(30)
-        text("¡PERDISTE!", 120,200)
+        text("¡PERDISTE!", ancho/2 -(textWidth("¡PERDISTE!")/2),ancho/2)
         noLoop()
+        mostrar_logro()
         registrar_puntos()
     }
 }
@@ -135,8 +154,8 @@ function mostrar_marcadores()
 {
     textSize(20)
     fill("black")
-    text(puntos + " puntos", 300,50 )
-    text(vidas + " vidas", 10,50)
+    text(puntos + " puntos", ancho - textWidth(puntos + " puntos") -30,50 )
+    text(vidas + " vidas", 30,50)
 }
 
 consultar_puntos()
@@ -175,6 +194,7 @@ function cargar_escenario()
         fondo= loadImage("bg001.png");
         break; 
     }
+    fondo.resize(ancho, ancho)
 }
 
 function cargar_personaje()
@@ -205,5 +225,33 @@ function cargar_personaje()
         mario= loadAnimation("m1.png");
         mario_corre= loadAnimation("m2.png", "m3.png", "m4.png");
         break; 
+    }
+}
+function mostrar_logro() {
+    document.getElementById("mostrar_puntos").style.visibility = "visible";
+    document.getElementById("puntaje").innerHTML = "Felicidades " + usuario+" ganaste " + puntos + " puntos de reciclaje";
+    console.log("puntos: " + puntos +", hitorial: "+puntajeAnterior);
+    if(puntajeAnterior + puntos >= 80 && puntajeAnterior < 80 )
+    {
+        document.getElementById("mensaje").innerHTML = "Desbloqueaste a Axel"
+        document.getElementById("imagen").src = "A_1.png"
+        document.getElementById("logro_desbloqueado").style.visibility = "visible"
+    }
+    else if(puntajeAnterior + puntos >= 60 && puntajeAnterior <  60)
+    {
+        document.getElementById("mensaje").innerHTML = "Desbloqueaste a Daniela"
+        document.getElementById("imagen").src = "D_1.gif"
+        document.getElementById("logro_desbloqueado").style.visibility = "visible"
+    }
+    else if(puntajeAnterior + puntos >= 40 && puntajeAnterior < 40 )
+    {
+            document.getElementById("mensaje").innerHTML = "Desbloqueaste a Pablo"
+            document.getElementById("imagen").src = "P_1.gif"
+            document.getElementById("logro_desbloqueado").style.visibility = "visible"
+    }
+    else if(puntajeAnterior + puntos >= 20 && puntajeAnterior < 20){
+        document.getElementById("mensaje").innerHTML = "Desbloqueaste a Nicki"
+        document.getElementById("imagen").src = "N_1.gif"
+        document.getElementById("logro_desbloqueado").style.visibility = "visible"
     }
 }
